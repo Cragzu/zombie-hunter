@@ -10,11 +10,20 @@
         img {
             width: 15%;
         }
-        .scoreDisplay {
-            display: inline-block;
+        h1, h2 {
+            font-family: Chiller;
         }
-        .imageContainer {
-            position: relative;
+        .textContainer {
+            display: flex;
+            justify-content: center;
+        }
+        .innerTextContainer {
+            display: block;
+        }
+        .scoreDisplay {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
         }
         #zombie {
             position: absolute;
@@ -29,18 +38,22 @@
 </head>
 
 <body>
-    <h3>Click on the zombie to kill it!</h3>
-    <h4 class="scoreDisplay">Score:</h4>
-    <h4 class="scoreDisplay" id="scoreCounter">0</h4>
-
-    <!--zombie starts in middle-->
-    <div class = imageContainer>
-
+    <!--text-->
+    <div class="textContainer">
+        <div class="innerTextContainer">
+            <h1>Click on the zombie to kill it!</h1>
+            <div class="scoreDisplay">
+                <h2>Score:&nbsp;</h2>
+                <h2 id="scoreCounter">0</h2>
+            </div>
+        </div>
     </div>
-        <img id="zombie" src="images/zombie.png">
-        <img id="explosion" src="images/explosion.png">
 
+    <!--images-->
+    <img id="zombie" src="images/zombie.png">
+    <img id="explosion" src="images/explosion.png">
 
+    <!--audio-->
     <audio id="zombieSound" src="audio/zombieSound.wav"></audio>
 
 
@@ -61,6 +74,8 @@
 
         function zombieMover() { // Move the zombie to a random location every 2 seconds when alive
             if(!zombieIsDead) {
+                zombie.style.display = "block"; // show zombie
+
                 // get window dimensions
                 width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
                 height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
@@ -74,8 +89,6 @@
         }
         setInterval(zombieMover, 2000);  // function executes every 2000 ms (2 sec)
 
-        // todo: clicking on zombie kills it, moves to new location
-
         function zombieDeathEffects() { // handles audio and explosion
             document.getElementById("zombieSound").play(); // play death sound
 
@@ -83,6 +96,8 @@
             explosion.style.display = "block";
             explosion.style.left = zombie.style.left;
             explosion.style.top = zombie.style.top;
+
+            setTimeout(function() {explosion.style.display = "none"; zombie.style.display = "none";}, 500);
         }
 
         let score = 0; // score count
@@ -91,6 +106,7 @@
             score++;
             document.getElementById("scoreCounter").innerHTML = score.toString(); // increment score counter
             zombieDeathEffects();
+            setTimeout(function() {zombieIsDead = false}, 500);
         }
         zombie.onclick = killZombie;
     </script>
