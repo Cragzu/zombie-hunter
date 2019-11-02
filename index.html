@@ -8,18 +8,24 @@
             background-color: darkgray;
         }
         img {
-            position: absolute;
             width: 15%;
-        }
-        .centerBox {
-            display: flex;
-            justify-content: center;
         }
         .scoreDisplay {
             display: inline-block;
         }
-        #scoreCount {
-
+        .centerBox {
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+        #zombie {
+            position: absolute;
+        }
+        #explosion {
+            top: 5px;
+            left: -35px;
+            position: relative;
+            display: none;
         }
     </style>
 </head>
@@ -32,40 +38,42 @@
     <!--zombie starts in middle-->
     <div class="centerBox">
         <img id="zombie" src="images/zombie.png">
+        <img id="explosion" src="images/explosion.png">
     </div>
 
     <audio id="zombieSound" src="audio/zombieSound.wav"></audio>
 
+
     <script>
-        let score = 0; // score count
+        let zombieIsDead = false;
+        function zombieMover() { // Move the zombie to a random location every 2 seconds when alive
+            if(!zombieIsDead) {
+                // get window dimensions
+                let width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+                let height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 
-        // get window dimensions
-        let width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-        let height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+                let myLeft = Math.floor(Math.random() * (width - document.getElementById("zombie").width)); // account for image size
+                let myTop = Math.floor(Math.random() * (height - document.getElementById("zombie").height));
 
-        // initialize variables for image coordinates (start in the centre)
-        let myLeft = 0;
-        let myTop = 0;
-
-        function zombieMover() { // Move the zombie to a random location every 2 seconds
-            myLeft = Math.floor(Math.random() * (width - document.getElementById("zombie").width)); // account for image size
-            myTop = Math.floor(Math.random() * (height - document.getElementById("zombie").height));
-
-            document.getElementById("zombie").style.left = myLeft+"px";  // set coordinates to random value
-            document.getElementById("zombie").style.top = myTop+"px";
+                document.getElementById("zombie").style.left = myLeft+"px";  // set coordinates to random value
+                document.getElementById("zombie").style.top = myTop+"px";
+            }
         }
         setInterval(zombieMover, 2000);  // function executes every 2000 ms (2 sec)
 
-        // todo: clicking on zombie kills it, plays audio, moves to new location
+        // todo: clicking on zombie kills it, moves to new location
 
-        function zombieDeath() {
+        function zombieDeathEffects() { // handles audio and explosion
             document.getElementById("zombieSound").play(); // play death sound
+            document.getElementById("explosion").style.display = "block";
         }
 
-        function killZombie() { //
+        let score = 0; // score count
+        function killZombie() { // executes when zombie is killed
+            zombieIsDead = true;
             score++;
             document.getElementById("scoreCounter").innerHTML = score.toString(); // increment score counter
-            zombieDeath();
+            zombieDeathEffects();
         }
         document.getElementById("zombie").onclick = killZombie;
     </script>
