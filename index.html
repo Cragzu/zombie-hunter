@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zombie Hunter</title>
+    <style>
+        body {
+            background-color: darkgray;
+        }
+        img {
+            position: absolute;
+            width: 15%;
+        }
+        .centerBox {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!--zombie starts in middle-->
+    <div class="centerBox">
+        <img id="zombie" src="https://vignette.wikia.nocookie.net/pvzcc/images/d/d9/BrowncoatZombiePvZH.png/revision/latest?cb=20170814062654">
+    </div>
+
+    <script> // Move the zombie to a random location every 2 seconds
+        // get window dimensions
+        let width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        let height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+        // initialize variables for image coordinates (start in the centre)
+        let myLeft = 0;
+        let myTop = 0;
+
+        function zombieMover() {
+            document.getElementById("zombie").style.left = myLeft+"px";  // set coordinates to random value
+            document.getElementById("zombie").style.top = myTop+"px";
+
+            myLeft = Math.floor(Math.random() * (width - document.getElementById("zombie").width)); // account for image size
+            myTop = Math.floor(Math.random() * (height - document.getElementById("zombie").height));
+        }
+        setInterval(zombieMover, 2000);  // function executes every 2000 ms (2 sec)
+    </script>
+
+    <script> // todo: clicking on zombie kills it, +1 to score, plays audio, moves to new location
+
+
+    </script>
+
+</body>
+</html>
