@@ -59,6 +59,7 @@
         </div>
     </div>
 
+    <!--reset button-->
     <div class="centerContainer">
         <div class="innerButtonContainer">
             <button id="resetButton">Reset</button>
@@ -74,6 +75,7 @@
 
 
     <script>
+        // todo: bonus for multiple zombies
         let zombieIsDead = false;
 
         let screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
@@ -93,7 +95,7 @@
             zombie.style.top = (verticalScreenCenter - (zombie.height/2))+"px";
 
             score = 0;
-            scoreCounter.innerHTML = "0";
+            scoreCounter.innerHTML = score.toString();
         }
 
         resetGame(); // initial set for game start
@@ -107,11 +109,11 @@
                 screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
                 screenHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 
-                let myLeft = Math.floor(Math.random() * (screenWidth - zombie.width)); // account for image size
-                let myTop = Math.floor(Math.random() * (screenHeight - zombie.height));
+                let zombieXCoord = Math.floor(Math.random() * (screenWidth - zombie.width)); // account for image size
+                let zombieYCoord = Math.floor(Math.random() * (screenHeight - zombie.height));
 
-                zombie.style.left = myLeft+"px";  // set coordinates to random value
-                zombie.style.top = myTop+"px";
+                zombie.style.left = zombieXCoord+"px";  // set coordinates to random value within constraints
+                zombie.style.top = zombieYCoord+"px";
             }
         }
         setInterval(zombieMover, 2000);  // function executes every 2000 ms (2 sec)
