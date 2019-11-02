@@ -3,48 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Zombie Hunter</title>
-    <style>
-        /*todo: external CSS?*/
-        body {
-            background-color: darkgray;
-        }
-        img {
-            width: 15%;
-        }
-        h1, h2 {
-            font-family: Chiller;
-        }
-        button {
-            width: 100px;
-            height:50px;
-            font-size: 22px;
-        }
-        .centerContainer {
-            display: flex;
-            justify-content: center;
-        }
-        .innerTextContainer {
-            display: block;
-        }
-        .innerButtonContainer {
-            position: fixed;
-            bottom: 50px;
-        }
-        .scoreDisplay {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-        }
-        #zombie {
-            position: absolute;
-        }
-        #explosion {
-            top: 5px;
-            left: -35px;
-            position: relative;
-            display: none;
-        }
-    </style>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -139,6 +98,5 @@
         }
         zombie.onclick = killZombie;
     </script>
-
 </body>
 </html>
