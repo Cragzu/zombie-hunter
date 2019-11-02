@@ -30,7 +30,7 @@
     <img id="explosion" src="images/explosion.png">
 
     <!--audio-->
-    <audio id="zombieSound" src="audio/zombieSound.wav"></audio>
+    <audio id="zombieSound" src="src/zombieSound.wav"></audio>
 
 
     <script>
@@ -50,7 +50,7 @@
         let score = 0; // score count
 
         function resetGame() {
-            zombie.style.left = (horizontalScreenCenter - (zombie.width/2))+"px";  // set coordinates to center of screen
+            zombie.style.left = (horizontalScreenCenter - (zombie.width/2))+"px";  // set coordinates to window center
             zombie.style.top = (verticalScreenCenter - (zombie.height/2))+"px";
 
             score = 0;
